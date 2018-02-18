@@ -11,7 +11,7 @@ type Detector struct {
 }
 
 // FromRequest returns client's real IP address from an http.Request.
-// In case the real IP address cannot be determined, and error is returned.
+// An error is returned if real IP address can't be determined.
 func (d *Detector) FromRequest(r *http.Request) (string, error) {
 	// Fetch header value.
 	xForwardedFor := r.Header.Get("X-Forwarded-For")
@@ -36,7 +36,7 @@ func (d *Detector) FromRequest(r *http.Request) (string, error) {
 
 // FromXForwardedFor returns client's real IP address based on
 // an X-Forwareded-For header value.
-// An error is returned, if real IP address can't be determined.
+// An error is returned if real IP address can't be determined.
 func (d *Detector) FromXForwardedFor(xForwardedFor string) (string, error) {
 	// Check list of IP in X-Forwarded-For and return the *last*
 	// allowed address.
